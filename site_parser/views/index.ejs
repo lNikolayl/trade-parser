@@ -1,0 +1,74 @@
+<!-- views/index.ejs -->
+<!doctype html>
+<html>
+<head>
+
+
+  <title>Node Authentication</title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+  <script type="text/javascript" src="../public/jquery-latest.js">
+  </script>
+  <script type="text/javascript" src="../public/jquery.tablesorter.js">
+  </script>
+  <style>
+    body        { padding-top:80px; }
+  </style>
+</head>
+<body>
+<div class="container" >
+
+  <div class="jumbotron text-center">
+    <h1><span class="fa fa-lock"></span> Node Authentication</h1>
+
+    <table id="mytable" class="table" cellspacing="0" cellpadding="0">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>CSM</th>
+        <th>LOOTFARM</th>
+        <th>CSM-LOOTFARM</th>
+        <th>LOOTFARM-CSM</th>
+        <th>LHAVE</th>
+        <th>LMAX</th>
+      </tr>
+      </thead>
+      <tbody>
+
+      <% items.forEach(function(item) { %>
+      <%if (item.csmoney.cost>0 ){%>
+      <tr>
+        <td><%= item.name %></td>
+        <td><%= item.csmoney.cost %></td>
+        <td><%= item.lootfarm.cost%></td>
+        <td><%= (((((item.lootfarm.cost)-0.03*(item.lootfarm.cost)) - (item.csmoney.cost))/(item.csmoney.cost))*100).toFixed(2) %>%</td>
+        <td><%= (((((item.csmoney.cost)-0.03*(item.csmoney.cost)) - (item.lootfarm.cost))/(item.lootfarm.cost))*100).toFixed(2) %>%</td>
+        <td><%= item.lootfarm.have %></td>
+        <td><%= item.lootfarm.max %></td>
+      </tr>
+      <%}%>
+      <% }); %>
+
+      </tbody>
+    </table>
+
+
+  </div>
+
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        $("#mytable").tablesorter();
+    });
+
+</script>
+
+
+
+
+
+</body>
+</html>
